@@ -1,4 +1,4 @@
 *.o
 *.vscode*
 step_counting
-record_data
+record_data/record_data
