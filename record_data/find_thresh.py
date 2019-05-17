@@ -5,7 +5,7 @@ import numpy as np
 import sys 
 
 THRESH_STEP = 0.01
-COUNT_REQUIRED = 20
+COUNT_REQUIRED = 135    
 def countPeak(thresh, array):
     flag = 0
     count = 0
@@ -61,7 +61,7 @@ def findThreshBase(threshStart, countRequired, array, direction='up', searching=
         return thresh
 
 def main():
-    data = pd.read_csv('./data/recorded_data30b.csv', sep='\s*;\s*', engine='python')
+    data = pd.read_csv('./data/sum_csv135.csv')#, sep='\s*;\s*', engine='python')
     accelX=np.array(data['accelX'])
     accelY=np.array(data['accelY'])
     accelZ=np.array(data['accelZ'])
@@ -76,7 +76,7 @@ def main():
     # print("hihi "+ str(countPeak(0.7340105393786573, totalAccel)))
     threshUpperHigh = findThreshBase(totalAccel.mean() + totalAccel.std() / 2, COUNT_REQUIRED, totalAccel, direction='up', searching='lower')
     threshUpperLow = findThreshBase(totalAccel.mean() + totalAccel.std() / 2, COUNT_REQUIRED, totalAccel, direction='down', searching='higher')
-    threshUpper = (threshUpperHigh + threshUpperLow) / 2
+    threshUpper = threshUpperLow
     threshLowerHigh = findThreshBase(totalAccel.mean() - totalAccel.std() / 4, COUNT_REQUIRED, totalAccel, direction='up', searching='higher')
     threshLowerLow = findThreshBase(totalAccel.mean() - totalAccel.std() / 4, COUNT_REQUIRED, totalAccel, direction='down', searching='lower')
     threshLower = threshLowerHigh
@@ -89,9 +89,10 @@ def main():
     # print("totalAccel: " + str(totalAccel.mean()))
     # print(countPeak(totalAccel.mean() + totalAccel.std(), totalAccel))
 
-    UPPER_THRESH = 1.2153570400735303
-    LOWER_THRESH = 1.136203823714361
-
+    # UPPER_THRESH = 1.2153570400735303
+    # LOWER_THRESH = 1.136203823714361
+    UPPER_THRESH = 1.3375668690185836
+    LOWER_THRESH = 1.105345450537175
     plt.plot(totalAccel, marker='', color='red', linewidth=0.5, label='total')
     plt.axhline(y=threshUpper, color='g', linewidth=1)
     plt.axhline(y=threshLower, color='g', linewidth=1)
@@ -113,34 +114,78 @@ def main():
     print(count)
 if __name__ == "__main__":
     main()
-
+#####################
 # 30
-# 1.4763220364793241 8
-# 1.136203823714361 8
+# 1.4763220364793241 
+# 1.136203823714361 
 
+#1.3713220364793242
+#1.136203823714361
+
+###################
 # 20 
-# 1.3236816428270841 2 
-# 1.0931527614741585 3
+# 1.3236816428270841 
+# 1.0931527614741585 
 
+#1.248681642827084
+#1.0931527614741585
+
+########################
 # 15
-# 1.3257048287837687 3
-# 1.1277099856081156 7 
+# 1.3257048287837687 
+# 1.1277099856081156  
 
+#1.2557048287837687
+#1.1277099856081156
+
+########################
 # 10
-# 1.3220835463117557 1
-# 1.0850492591021863 1
+# 1.3220835463117557 
+# 1.0850492591021863 
 
+#1.2420835463117557
+#1.0850492591021863
+
+#########################
 # 30b
 # 1.2153570400735303
 # 1.093841311595888
 
+#1.1803570400735304
+#1.093841311595888
+
+##########################
 # 20b
-# 1.4008835552344938 7 
-# 1.11571787150556 6
+# 1.4008835552344938 
+# 1.11571787150556 
 
+#1.2558835552344938
+#1.11571787150556
+
+###############################
 # 10b
-# 1.340664144935857 4
-# 1.0859636833460253 2
+# 1.340664144935857 
+# 1.0859636833460253 
 
+#1.2656641449358568
+#1.0859636833460253
+
+
+
+
+# assemble
+# 1.2978613434595392
+# 1.1051249079511032
+
+#1.272861343459539
+#1.1051249079511032
+
+
+#avg
+# 1.3375668690185836
+# 1.105345450537175
+
+#1.2606701174477086
+#1.105345450537175
 
 

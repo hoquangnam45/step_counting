@@ -5,7 +5,7 @@ import numpy as np
 import sys 
 
 def main():
-    data = pd.read_csv('./data/recorded_data20b.csv', sep='\s*;\s*', engine='python')
+    data = pd.read_csv('./data/sum_csv135.csv')#, sep='\s*;\s*', engine='python')
     #print(data)
     accelX = np.array(data['accelX'])
     accelY = np.array(data['accelY'])
