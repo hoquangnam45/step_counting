@@ -1,0 +1,4 @@
+*.o
+*.vscode*
+step_counting
+record_data
