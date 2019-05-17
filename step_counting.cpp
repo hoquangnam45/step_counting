@@ -7,8 +7,8 @@
 using namespace std;
 
 // Giá trị đo từ thực nghiệm xin đừng thay đổi
-#define UPPER_THRESH 1.32208354631175571
-#define LOWER_THRESH 1.1277099856081106
+#define UPPER_THRESH 1.3648899590953807
+#define LOWER_THRESH 1.1132314912345624
 
 LSM9DS0 *imu;
 // Define an edOLED object:
