@@ -58,17 +58,17 @@ int main(){
                 usleep(1e6);
             }
         }
-        // oled.clear(PAGE);
-        // oled.setCursor(0,0);
-        // oled.print("Dem: ");
-        // oled.print(stepCount);
-        // oled.display();
+        oled.clear(PAGE);
+        oled.setCursor(0,0);
+        oled.print("Dem: ");
+        oled.print(stepCount);
+        oled.display();
         readData();
         if (totalAccel < LOWER_THRESH) setFlag = true;
         else if (totalAccel > UPPER_THRESH && setFlag == true){
             setFlag = false;
             stepCount++;
-            cout << stepCount << endl;
+            //cout << stepCount << endl;
         }
         if (BUTTON_B.pinRead() == LOW) run = false;
     }
