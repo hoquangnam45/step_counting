@@ -7,8 +7,8 @@
 using namespace std;
 
 // Giá trị đo từ thực nghiệm xin đừng thay đổi
-#define UPPER_THRESH 1.3648899590953807
-#define LOWER_THRESH 1.1132314912345624
+#define UPPER_THRESH 1.2153570400735303
+#define LOWER_THRESH 1.136203823714361
 
 LSM9DS0 *imu;
 // Define an edOLED object:
@@ -49,7 +49,7 @@ int main(){
                 initFlag = 1;
             }
             if (BUTTON_A.pinRead() == LOW){
-                initFlag = 0;
+                //initFlag = 0;
                 run = true;
                 oled.clear(PAGE);
                 oled.setCursor(0,0);

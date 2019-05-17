@@ -5,7 +5,7 @@ import numpy as np
 import sys 
 
 THRESH_STEP = 0.01
-COUNT_REQUIRED = 10
+COUNT_REQUIRED = 20
 def countPeak(thresh, array):
     flag = 0
     count = 0
@@ -61,7 +61,7 @@ def findThreshBase(threshStart, countRequired, array, direction='up', searching=
         return thresh
 
 def main():
-    data = pd.read_csv('./data/recorded_data10b.csv', sep='\s*;\s*', engine='python')
+    data = pd.read_csv('./data/recorded_data30b.csv', sep='\s*;\s*', engine='python')
     accelX=np.array(data['accelX'])
     accelY=np.array(data['accelY'])
     accelZ=np.array(data['accelZ'])
@@ -89,18 +89,21 @@ def main():
     # print("totalAccel: " + str(totalAccel.mean()))
     # print(countPeak(totalAccel.mean() + totalAccel.std(), totalAccel))
 
-    #plt.plot(totalAccel, marker='', color='red', linewidth=0.5, label='total')
-    #plt.axhline(y=threshUpper, color='g', linewidth=1)
-    #plt.axhline(y=threshLower, color='g', linewidth=1)
-    #plt.axhline(y=totalAccel.mean(), color='black', linewidth=0.5, linestyle="--")
-    #plt.axhline(y=totalAccel.mean() + totalAccel.std(), color='black', linewidth=0.5, linestyle="--")
-    #plt.axhline(y=totalAccel.mean() - totalAccel.std(), color='black', linewidth=0.5, linestyle="-.")
-    #plt.show()
+    UPPER_THRESH = 1.2153570400735303
+    LOWER_THRESH = 1.136203823714361
+
+    plt.plot(totalAccel, marker='', color='red', linewidth=0.5, label='total')
+    plt.axhline(y=threshUpper, color='g', linewidth=1)
+    plt.axhline(y=threshLower, color='g', linewidth=1)
+    plt.axhline(y=UPPER_THRESH, color='y', linewidth=1)
+    plt.axhline(y=LOWER_THRESH, color='y', linewidth=1)
+    plt.axhline(y=totalAccel.mean(), color='black', linewidth=0.5, linestyle="--")
+    plt.axhline(y=totalAccel.mean() + totalAccel.std(), color='black', linewidth=0.5, linestyle="--")
+    plt.axhline(y=totalAccel.mean() - totalAccel.std(), color='black', linewidth=0.5, linestyle="-.")
+    plt.show()
 
     count = 0;
     setFlag = 0;
-    UPPER_THRESH = 1.3648899590953807
-    LOWER_THRESH = 1.1132314912345624
     for accel in totalAccel:
         if (accel < LOWER_THRESH):
             setFlag = 1
@@ -127,6 +130,10 @@ if __name__ == "__main__":
 # 1.3220835463117557 1
 # 1.0850492591021863 1
 
+# 30b
+# 1.2153570400735303
+# 1.093841311595888
+
 # 20b
 # 1.4008835552344938 7 
 # 1.11571787150556 6
@@ -135,12 +142,5 @@ if __name__ == "__main__":
 # 1.340664144935857 4
 # 1.0859636833460253 2
 
-# avg
-# 1.3648899590953807 5 
-# 1.107299564125068 4
-
-# avg 2
-# 1.3837525180937518 6
-# 1.1132314912345624 5
 
 
