@@ -5,7 +5,7 @@ import numpy as np
 import sys 
 
 THRESH_STEP = 0.01
-COUNT_REQUIRED = 135    
+COUNT_REQUIRED = 30 
 def countPeak(thresh, array):
     flag = 0
     count = 0
@@ -61,7 +61,7 @@ def findThreshBase(threshStart, countRequired, array, direction='up', searching=
         return thresh
 
 def main():
-    data = pd.read_csv('./data/sum_csv135.csv')#, sep='\s*;\s*', engine='python')
+    data = pd.read_csv('./data/recorded_data30.csv', sep='\s*;\s*', engine='python')
     accelX=np.array(data['accelX'])
     accelY=np.array(data['accelY'])
     accelZ=np.array(data['accelZ'])
@@ -76,14 +76,14 @@ def main():
     # print("hihi "+ str(countPeak(0.7340105393786573, totalAccel)))
     threshUpperHigh = findThreshBase(totalAccel.mean() + totalAccel.std() / 2, COUNT_REQUIRED, totalAccel, direction='up', searching='lower')
     threshUpperLow = findThreshBase(totalAccel.mean() + totalAccel.std() / 2, COUNT_REQUIRED, totalAccel, direction='down', searching='higher')
-    threshUpper = threshUpperLow
+    threshUpper = (threshUpperLow + threshUpperHigh) / 2
     threshLowerHigh = findThreshBase(totalAccel.mean() - totalAccel.std() / 4, COUNT_REQUIRED, totalAccel, direction='up', searching='higher')
     threshLowerLow = findThreshBase(totalAccel.mean() - totalAccel.std() / 4, COUNT_REQUIRED, totalAccel, direction='down', searching='lower')
     threshLower = threshLowerHigh
     # threshUpper = findThresh(28, totalAccel, direction='down', searching='equal'); # 1.6519: 29; 1.63195: 10;
     # threshLower = findThreshBase(threshUpper, 10, totalAccel, direction='down', searching='higher'); # 0.9058: 29; 0.9108: 10; 
-    print(totalAccel.mean() - totalAccel.std());
-    print(totalAccel.mean() + totalAccel.std());
+    #print(totalAccel.mean() - totalAccel.std());
+    #print(totalAccel.mean() + totalAccel.std());
     print(threshUpper);
     print(threshLower);
     # print("totalAccel: " + str(totalAccel.mean()))
@@ -93,14 +93,17 @@ def main():
     # LOWER_THRESH = 1.136203823714361
     UPPER_THRESH = 1.3375668690185836
     LOWER_THRESH = 1.105345450537175
-    plt.plot(totalAccel, marker='', color='red', linewidth=0.5, label='total')
-    plt.axhline(y=threshUpper, color='g', linewidth=1)
-    plt.axhline(y=threshLower, color='g', linewidth=1)
-    plt.axhline(y=UPPER_THRESH, color='y', linewidth=1)
-    plt.axhline(y=LOWER_THRESH, color='y', linewidth=1)
-    plt.axhline(y=totalAccel.mean(), color='black', linewidth=0.5, linestyle="--")
-    plt.axhline(y=totalAccel.mean() + totalAccel.std(), color='black', linewidth=0.5, linestyle="--")
-    plt.axhline(y=totalAccel.mean() - totalAccel.std(), color='black', linewidth=0.5, linestyle="-.")
+    # UPPER_THRESH = 53.689616039445696
+    #LOWER_THRESH = 34.459430592522054
+    plt.plot(totalAccel, marker='', color='red', linewidth=0.5, label='totalAccel')
+    plt.axhline(y=threshUpper, color='g', linewidth=1, label='threshUpper')
+    plt.axhline(y=threshLower, color='g', linewidth=1, label='threshLower')
+    #plt.axhline(y=UPPER_THRESH, color='y', linewidth=1)
+    #plt.axhline(y=LOWER_THRESH, color='y', linewidth=1)
+    plt.axhline(y=totalAccel.mean(), color='black', linewidth=0.5, linestyle="--", label='mean')
+    plt.axhline(y=totalAccel.mean() + totalAccel.std() / 2, color='black', linewidth=0.5, linestyle="--", label='Mean + std/2')
+    plt.axhline(y=totalAccel.mean() - totalAccel.std() / 2, color='black', linewidth=0.5, linestyle="-.", label='Mean - std/2')
+    plt.legend()
     plt.show()
 
     count = 0;
@@ -112,8 +115,11 @@ def main():
             setFlag = 0
             count += 1
     print(count)
+
 if __name__ == "__main__":
     main()
+
+# Accel based
 #####################
 # 30
 # 1.4763220364793241 
@@ -188,4 +194,4 @@ if __name__ == "__main__":
 #1.2606701174477086
 #1.105345450537175
 
-
+# Gyro based
